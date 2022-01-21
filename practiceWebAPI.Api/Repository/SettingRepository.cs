@@ -15,17 +15,17 @@ namespace CustomerManagement.Api.Repository
         }
         public async Task<Setting> AddSetting(Setting setting)
         {
-            var result = await myDbContext.settings.AddAsync(setting);
+            var result = await myDbContext.Settings.AddAsync(setting);
             await myDbContext.SaveChangesAsync();
             return result.Entity;
         }
 
         public async Task<Setting> DeleteSetting(string attributeID)
         {
-            var result = await myDbContext.settings.FirstOrDefaultAsync(x => x.AttributeId == attributeID);
+            var result = await myDbContext.Settings.FirstOrDefaultAsync(x => x.AttributeId == attributeID);
             if (result != null)
             {
-                myDbContext.settings.Remove(result);
+                myDbContext.Settings.Remove(result);
                 await myDbContext.SaveChangesAsync();
                 return result;
             }
@@ -34,17 +34,17 @@ namespace CustomerManagement.Api.Repository
 
         public async Task<IEnumerable<Setting>> GetSettings()
         {
-            return await myDbContext.settings.ToListAsync();
+            return await myDbContext.Settings.ToListAsync();
         }
 
         public async Task<Setting> GetSetting(string attributeID)
         {
-            return await myDbContext.settings.FirstOrDefaultAsync(x => x.AttributeId == attributeID);
+            return await myDbContext.Settings.FirstOrDefaultAsync(x => x.AttributeId == attributeID);
         }
 
         public async Task<IEnumerable<Setting>> Search(string attributeID)
         {
-            IQueryable<Setting> query = myDbContext.settings;
+            IQueryable<Setting> query = myDbContext.Settings;
             if (!string.IsNullOrEmpty(attributeID))
             {
                 query = query.Where(x => x.AttributeId.Contains(attributeID));
@@ -54,7 +54,7 @@ namespace CustomerManagement.Api.Repository
 
         public async Task<Setting> UpdateSetting(Setting setting)
         {
-            var result = await myDbContext.settings.FirstOrDefaultAsync(x => x.AttributeId == setting.AttributeId);
+            var result = await myDbContext.Settings.FirstOrDefaultAsync(x => x.AttributeId == setting.AttributeId);
             if (result != null)
             {
                 result.AttributeId = setting.AttributeId;

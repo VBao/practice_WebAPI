@@ -10,8 +10,8 @@ namespace CustomerManagement.Api.Repository
 
         }
 
-        public DbSet<Attribute> attributes { get; set; }
-        public DbSet<Setting> settings { get; set; }
+        public DbSet<Attribute> Attributes { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
