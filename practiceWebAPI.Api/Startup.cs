@@ -27,6 +27,7 @@ namespace CustomerManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ISettingRepository, SettingRepository>();
             services.AddDbContext<CustomerManagementContext>(opts =>
                 opts.UseNpgsql(Configuration.GetConnectionString("CustomerContext")));
             services.AddControllers();
