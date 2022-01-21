@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace practiceWebAPI.Api
+namespace CustomerManagement.Api
 {
     public class Program
     {
