@@ -28,6 +28,7 @@ namespace CustomerManagement.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ISettingRepository, SettingRepository>();
+            services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddDbContext<CustomerManagementContext>(opts =>
                 opts.UseNpgsql(Configuration.GetConnectionString("CustomerContext")));
             services.AddControllers();

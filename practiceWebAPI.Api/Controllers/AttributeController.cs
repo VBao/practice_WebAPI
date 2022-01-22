@@ -32,7 +32,7 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{code:string}")]
+        [HttpGet("{code}")]
         public async Task<ActionResult<Attribute>> GetAttribute(string code)
         {
             try
@@ -70,7 +70,7 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpPut("{code:string}")]
+        [HttpPut("{code}")]
         public async Task<ActionResult<Attribute>> UpdateEmployee(string code, Attribute attribute)
         {
             try
@@ -92,7 +92,7 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpDelete("{code:string}")]
+        [HttpDelete("{code}")]
         public async Task<ActionResult<Attribute>> DeleteEmployee(string code)
         {
             try
@@ -114,11 +114,11 @@ namespace CustomerManagement.Api.Controllers
         }
 
         [HttpGet("{search}")]
-        public async Task<ActionResult<IEnumerable<Attribute>>> Search(string code)
+        public async Task<ActionResult<IEnumerable<Attribute>>> Search(string search)
         {
             try
             {
-                var result = await attributeRepository.Search(code);
+                var result = await attributeRepository.Search(search);
 
                 if (result.Any())
                 {
