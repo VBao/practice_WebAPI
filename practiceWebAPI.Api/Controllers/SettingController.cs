@@ -2,6 +2,7 @@
 using CustomerManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace CustomerManagement.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Setting")]
     public class SettingController : ControllerBase
     {
 
@@ -19,7 +20,7 @@ namespace CustomerManagement.Api.Controllers
             this.settingRepository = settingRepository;
         }
 
-        [HttpGet]
+        [HttpGet("index")]
         public async Task<ActionResult> GetSettings()
         {
             try
@@ -33,12 +34,12 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{attributeId:string}")]
-        public async Task<ActionResult<Setting>> GetSetting(string attributeID)
+        [HttpGet("id/{attributeId}")]
+        public async Task<ActionResult<Setting>> GetSetting(String attributeId)
         {
             try
             {
-                var result = await settingRepository.GetSetting(attributeID);
+                var result = await settingRepository.GetSetting(attributeId);
 
                 if (result == null) return NotFound();
 
@@ -71,18 +72,18 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpPut("{attributeId:string}")]
-        public async Task<ActionResult<Setting>> UpdateEmployee(string attributeID, Setting Setting)
+        [HttpPut("id/{attributeId}")]
+        public async Task<ActionResult<Setting>> UpdateEmployee(String attributeId, Setting Setting)
         {
             try
             {
-                if (attributeID != Setting.AttributeId)
+                if (attributeId != Setting.AttributeId)
                     return BadRequest("SettingID mismatch");
 
-                var SettingToUpdate = await settingRepository.GetSetting(attributeID);
+                var SettingToUpdate = await settingRepository.GetSetting(attributeId);
 
                 if (SettingToUpdate == null)
-                    return NotFound($"'Setting' with attributeID = {attributeID} not found");
+                    return NotFound($"'Setting' with attributeID = {attributeId} not found");
 
                 return await settingRepository.UpdateSetting(Setting);
             }
@@ -93,19 +94,19 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpDelete("{attributeId:string}")]
-        public async Task<ActionResult<Setting>> DeleteEmployee(string attributeID)
+        [HttpDelete("id/{attributeId}")]
+        public async Task<ActionResult<Setting>> DeleteEmployee(String attributeId)
         {
             try
             {
-                var SettingToDelete = await settingRepository.GetSetting(attributeID);
+                var SettingToDelete = await settingRepository.GetSetting(attributeId);
 
                 if (SettingToDelete == null)
                 {
-                    return NotFound($"'Setting' with code = {attributeID} not found");
+                    return NotFound($"'Setting' with code = {attributeId} not found");
                 }
 
-                return await settingRepository.DeleteSetting(attributeID);
+                return await settingRepository.DeleteSetting(attributeId);
             }
             catch (System.Exception)
             {
@@ -114,12 +115,12 @@ namespace CustomerManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{search}")]
-        public async Task<ActionResult<IEnumerable<Setting>>> Search(string attributeID)
+        [HttpGet("search/{search}")]
+        public async Task<ActionResult<IEnumerable<Setting>>> Search(String search)
         {
             try
             {
-                var result = await settingRepository.Search(attributeID);
+                var result = await settingRepository.Search(search);
 
                 if (result.Any())
                 {
